@@ -1,39 +1,18 @@
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const cors = require('cors')
+
 const app = express();
 const targetUrl = 'https://api.backpack.exchange';
 
-
-const allowedOrigin = 'https://next-trade-frontend.vercel.app'; 
-
-app.use(cors());
-
 // Handle CORS
 app.use((req, res, next) => {
-    const origin = req.headers.origin;
-    if (req.method === 'OPTIONS') {
-        return res.sendStatus(200); // Respond to preflight with status 200
-    }
-    if(origin  == allowedOrigin){
-
-        res.header('Access-Control-Allow-Origin', origin);
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-        res.header('Access-Control-Allow-Credentials', 'true');
-        res.header('Access-Control-Expose-Headers', 'Content-Length, Content-Range');
-    }else{
-        return res.status(403).send('CORS policy: Access denied');
-    }
-
-    
-
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Expose-Headers', 'Content-Length, Content-Range');
     next();
 });
-
-
-
-
 
 // Handle OPTIONS preflight requests
 app.options('*', (req, res) => {
@@ -51,8 +30,6 @@ app.use('/', createProxyMiddleware({
         console.log(`Response received with status: ${proxyRes.statusCode}`);
     }
 }));
-
-
 
 // Error handling
 app.use((err, req, res, next) => {
