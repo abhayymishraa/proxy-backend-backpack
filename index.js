@@ -7,6 +7,8 @@ const targetUrl = 'https://api.backpack.exchange';
 
 const allowedOrigin = 'https://next-trade-frontend.vercel.app'; 
 
+app.use(cors());
+
 // Handle CORS
 app.use((req, res, next) => {
     const origin = req.headers.origin;
