@@ -6,7 +6,7 @@ const targetUrl = 'https://api.backpack.exchange';
 const cors  = require('cors')
 
 // Handle CORS
-const allowedOrigin = 'https://your-next-app.vercel.app'; // Replace with your actual frontend URL
+const allowedOrigin = 'https://next-trade-frontend.vercel.app'; // Replace with your actual frontend URL
 
 app.use((req, res, next) => {
     const origin = req.headers.origin;
