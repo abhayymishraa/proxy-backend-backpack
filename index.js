@@ -3,6 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 const targetUrl = 'https://api.backpack.exchange';
+const cors  = require('cors')
 
 // Handle CORS
 app.use((req, res, next) => {
@@ -13,6 +14,8 @@ app.use((req, res, next) => {
     res.header('Access-Control-Expose-Headers', 'Content-Length, Content-Range');
     next();
 });
+
+app.use(cors());
 
 // Handle OPTIONS preflight requests
 app.options('*', (req, res) => {
