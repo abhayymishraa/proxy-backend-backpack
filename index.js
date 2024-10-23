@@ -6,12 +6,16 @@ const targetUrl = 'https://api.backpack.exchange';
 const cors  = require('cors')
 
 // Handle CORS
+const allowedOrigin = 'https://your-next-app.vercel.app'; // Replace with your actual frontend URL
+
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    const origin = req.headers.origin;
+    if (origin === allowedOrigin) {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Expose-Headers', 'Content-Length, Content-Range');
     next();
 });
 
