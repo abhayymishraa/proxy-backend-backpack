@@ -12,7 +12,7 @@ const allowedOrigin = 'https://next-trade-frontend.vercel.app';
 app.use((req, res, next) => {
     const origin = req.headers.origin;
     if (origin === allowedOrigin) {
-        res.header('Access-Control-Allow-Origin', "*");
+        res.header('Access-Control-Allow-Origin', origin);
     }
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -21,6 +21,10 @@ app.use((req, res, next) => {
 });
 
 // Enable CORS
+app.use(cors({
+    origin: allowedOrigin, // Allow requests only from your frontend
+    credentials: true, // Enable credentials for cookies, auth, etc.
+}));
 
 // Handle OPTIONS preflight requests
 app.options('*', (req, res) => {
