@@ -8,6 +8,7 @@ const cors = require('cors');
 // Replace with your actual frontend URL
 const allowedOrigin = 'https://next-trade-frontend.vercel.app'; 
 
+app.use(cors);
 // Handle CORS
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', "*");
@@ -17,11 +18,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// Enable CORS
-app.use(cors({
-    origin: allowedOrigin, // Allow requests only from your frontend
-    credentials: true, // Enable credentials for cookies, auth, etc.
-}));
 
 // Handle OPTIONS preflight requests
 app.options('*', (req, res) => {
